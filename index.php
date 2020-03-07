@@ -1,59 +1,9 @@
 <?php 
 require_once "confing/db.php";
 require_once "template/header.php";
-$query = "SELECT * FROM `magazine`";
-$result = mysqli_query($mysqli, $query);
-var_dump($result);
-$products = array(
-    0 => array(
-        "name" => "Товар 1",
-        "img" => "/img.product1.jpg",
-        "description" => "Описание товара",
-        "url" => "/",
-    ),
-    1 => array(
-        "name" => "Товар 1",
-        "img" => "/img.product1.jpg",
-        "description" => "Описание товара",
-        "url" => "/",
-    ),
-    2 => array(
-        "name" => "Товар 1",
-        "img" => "/img.product1.jpg",
-        "description" => "Описание товара",
-        "url" => "/",
-    ),
-    3 => array(
-        "name" => "Товар 1",
-        "img" => "/img.product1.jpg",
-        "description" => "Описание товара",
-        "url" => "/",
-    ),
-    4 => array(
-        "name" => "Товар 1",
-        "img" => "/img.product1.jpg",
-        "description" => "Описание товара",
-        "url" => "/",
-    ),
-    5 => array(
-        "name" => "Товар 1",
-        "img" => "/img.product1.jpg",
-        "description" => "Описание товара",
-        "url" => "/",
-    ),
-    6 => array(
-        "name" => "Товар 1",
-        "img" => "/img.product1.jpg",
-        "description" => "Описание товара",
-        "url" => "/",
-    ),
-    7 => array(
-        "name" => "Товар 1",
-        "img" => "/img.product1.jpg",
-        "description" => "Описание товара",
-        "url" => "/",
-    ),
-)
+$query = "SELECT * FROM `products`";
+$result = mysqli_query($conn, $query);
+$products = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 <div class="container">
     <section class="mt-4">
@@ -116,18 +66,19 @@ $products = array(
     </section>
     <section class="mt-4">
         <div class="row mb-3">
-        <? foreach($products as $key => $product):?>
+        <?php foreach($products as $key => $product):?>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="<?=$product['img'] ?>" class="card-img-top" alt="">
+                    <img src="<?php echo $product['img'] ?>" class="card-img-top" alt="">
                     <div class="card-body">
-                        <h5 class="card-title"><?=$product['name'] ?></h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">В корзину</a>
+                        <h2 class="card-title"><?= $product['name'] ?></h2>
+                        <p class="card-text"><?= $product['description'] ?></p>
+                        <p class="card-text"><?= $product['price'] ?></p>
+                        <a href='.product.php?id='<?= $product['id'] ?>>Перейти</a>
                     </div>
                 </div>
             </div>
-        <? endforeach; ?>
+        <?php endforeach; ?>
         </div>
     </section>
 </div>
